@@ -1,0 +1,16 @@
+Emp_ID,Name,Age,Department,Salary,Experience_Years,Rating,Remote_Worker,Left_Company,Dept_Head,Budget_Million
+101,Alice Smith,28.0,IT,75000.0,3.5,4.2,Yes,0,Sarah Connor,2.5
+102,BOB JONES,34.0,IT,68000.0,7.0,3.8,No,1,Sarah Connor,2.5
+103,Charlie Brown,33.5,HR,52000.0,1.0,2.9,Yes,0,Jim Halpert,0.8
+104,David Lee,42.0,MARKETING,95000.0,12.0,4.9,No,0,Don Draper,1.4
+105,Eva Green,29.0,FINANCE,82000.0,4.0,4.0,Yes,0,Gordon Gekko,1.9
+106,Frank White,33.5,IT,110000.0,15.0,1.5,No,1,Sarah Connor,2.5
+107,Grace Kelly,31.0,HR,85000.0,7.75,3.5,Yes,0,Jim Halpert,0.8
+108,Hannah Abbott,24.0,UNKNOWN,48000.0,0.5,4.1,No,1,,
+109,Ian Malcolm,45.0,SALES,90000.0,14.0,4.7,Yes,0,Jordan Belfort,3.2
+110,Jack Sparrow,38.0,IT,105000.0,10.0,3.9,Yes,1,Sarah Connor,2.5
+111,Karen Page,29.0,FINANCE,78000.0,5.0,3.7,No,0,Gordon Gekko,1.9
+112,Leo Messi,36.0,SALES,130000.0,13.0,4.8,Yes,0,Jordan Belfort,3.2
+113,Mia Wallace,33.5,HR,60000.0,2.0,3.0,No,1,Jim Halpert,0.8
+114,Nathan Drake,33.0,SALES,88000.0,8.5,4.4,Yes,0,Jordan Belfort,3.2
+115,Olivia Pope,41.0,MARKETING,92000.0,11.0,4.6,No,0,Don Draper,1.4

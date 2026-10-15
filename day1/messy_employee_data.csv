@@ -1,0 +1,17 @@
+Emp_ID,Name,Age,Department,Salary,Experience_Years,Rating,Remote_Worker,Left_Company
+101,  Alice Smith ,28,IT,"$75,000",3.5,4.2,Yes,0
+102,BOB JONES,34,it ,"$68,000",7.0,3.8,No,1
+103,Charlie Brown,unknown,HR,"$52,000",1.0,2.9,yes,0
+104,David Lee,42,Marketing,"$95,000",12.0,4.9,NO,0
+105,Eva Green,29,Finance,82000,4.0,4.0,Yes,0
+106, Frank White ,250,IT,"$110,000",15.0,1.5,no,1
+107,Grace Kelly,31,hr,N/A,,3.5,Yes,0
+108,Hannah Abbott,24,,"$48,000",0.5,4.1,No,1
+109,Ian Malcolm,45,Sales,"$90,000",14.0,4.7,Yes,0
+110,Jack Sparrow,38,IT,"$105,000",10.0,3.9,yes,1
+104,David Lee,42,Marketing,"$95,000",12.0,4.9,NO,0
+111,Karen Page,29,Finance,"$78,000",5.0,3.7,No,0
+112,Leo Messi,36,Sales,"$130,000",13.0,4.8,Yes,0
+113,Mia Wallace,N/A,HR,"$60,000",2.0,3.0,No,1
+114,Nathan Drake,33,Sales,"88,000",8.5,4.4,Yes,0
+115,Olivia Pope,41,Marketing,"$92,000",11.0,4.6,No,0

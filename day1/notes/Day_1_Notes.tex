@@ -1,0 +1,123 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\title{\textbf{Day 1: Python, Pandas, and Data Preprocessing for Machine Learning}}
+\author{Data Science Foundation Series}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Introduction and Architecture}
+Data preprocessing forms 80\% of a Machine Learning Engineer's daily workflow. Machine Learning algorithms rely on matrix algebra:
+\begin{equation}
+\mathbf{\hat{y}} = \sigma(\mathbf{X}\mathbf{W} + \mathbf{b})
+\end{equation}
+Because algorithms perform linear and non-linear transformations on numeric matrices $\mathbf{X} \in \mathbb{R}^{n \times d}$, raw real-world data cannot be consumed directly. Raw data contains missing values, irregular strings, high cardinality text, and unscaled magnitudes.
+
+\section{Pandas Foundations: Series and DataFrames}
+\subsection{Series}
+A Series is a one-dimensional labeled homogeneous array. Mathematically, it is a function mapping an index set to value space:
+\begin{equation}
+f: \mathcal{I} \to \mathcal{V}
+\end{equation}
+
+\subsection{DataFrames and Indexing}
+A DataFrame is a two-dimensional tabular data structure with heterogeneous column types:
+\begin{itemize}
+    \item \texttt{.loc}: Label-based indexing (uses column names and row labels).
+    \item \texttt{.iloc}: Integer-position indexing (0 to $N-1$).
+\end{itemize}
+
+\section{Data Cleaning Masterclass}
+\subsection{Duplicate Resolution}
+Duplicates artificially inflate model confidence and bias predictions. We use:
+\begin{lstlisting}[language=Python]
+df = df.drop_duplicates(subset=['Emp_ID'], keep='first')
+\end{lstlisting}
+
+\subsection{Missing Data Imputation Strategies}
+Let $x_i$ represent the $i$-th sample of feature $X$:
+\begin{enumerate}
+    \item \textbf{Mean Imputation}: $\mu = \frac{1}{N} \sum_{i=1}^N x_i$ (Sensitive to extreme outliers).
+    \item \textbf{Median Imputation}: Robust central tendency, minimizes $L_1$ loss:
+    \begin{equation}
+    \text{Median}(X) = \arg\min_c \sum_{i=1}^N |x_i - c|
+    \end{equation}
+    \item \textbf{Categorical Mode}: Most frequent category $c^* = \arg\max_c P(c)$.
+\end{enumerate}
+
+\subsection{Outlier Handling via IQR}
+Given the first quartile $Q_1$ (25th percentile) and third quartile $Q_3$ (75th percentile), the Interquartile Range (IQR) is:
+\begin{equation}
+\text{IQR} = Q_3 - Q_1
+\end{equation}
+Any observation $x$ outside the interval is considered an outlier:
+\begin{equation}
+x \notin [Q_1 - 1.5 \times \text{IQR}, \; Q_3 + 1.5 \times \text{IQR}]
+\end{equation}
+
+\section{Exploratory Data Analysis (EDA)}
+The correlation between two continuous random variables $X$ and $Y$ is given by Pearson's coefficient:
+\begin{equation}
+\rho_{X, Y} = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^n (x_i - \bar{x})^2}\sqrt{\sum_{i=1}^n (y_i - \bar{y})^2}}
+\end{equation}
+
+\section{Machine Learning Preprocessing}
+\subsection{Feature Encoding}
+\textbf{One-Hot Encoding}: Maps a categorical variable with $K$ distinct categories into $K-1$ binary columns to prevent multicollinearity (the dummy variable trap).
+
+\subsection{Train-Test Splitting \& Data Leakage}
+\textbf{The Golden Law:} The test dataset $\mathcal{D}_{\text{test}}$ must remain completely invisible during all preprocessing stages. Never compute mean $\mu$ or variance $\sigma^2$ on the full dataset before splitting.
+
+\subsection{Feature Scaling}
+\subsubsection{Standardization (Z-Score)}
+\begin{equation}
+z_i = \frac{x_i - \mu_{\text{train}}}{\sigma_{\text{train}}}
+\end{equation}
+Transforms distribution to mean 0 and standard deviation 1.
+
+\subsubsection{Normalization (Min-Max Scaling)}
+\begin{equation}
+x_{i,\text{norm}} = \frac{x_i - x_{\min,\text{train}}}{x_{\max,\text{train}} - x_{\min,\text{train}}}
+\end{equation}
+Bounds features strictly to $[0, 1]$.
+
+\end{document}
