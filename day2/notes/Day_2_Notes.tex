@@ -1,0 +1,78 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+
+\title{\textbf{Day 2: Machine Learning and Neural Networks}}
+\author{Data Science Foundation Series}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{AI vs. Machine Learning vs. Deep Learning}
+\begin{itemize}
+    \item \textbf{Artificial Intelligence (AI):} Any computational system mimicking human decision-making. Can be rule-based without learning.
+    \item \textbf{Machine Learning (ML):} The computer discovers predictive statistical rules directly from past empirical data.
+    \item \textbf{Deep Learning (DL):} Multi-layered artificial neural networks capable of automatic feature extraction from unstructured data (images, text, audio).
+\end{itemize}
+
+\section{Supervised vs. Unsupervised Learning}
+\begin{itemize}
+    \item \textbf{Supervised Learning:} The dataset contains ground truth target labels $y$. The goal is to learn a mapping $f(X) \approx y$.
+    \item \textbf{Unsupervised Learning:} No target labels exist. The goal is discovering latent clusters or dimensionality reductions.
+\end{itemize}
+
+\section{Regression vs. Classification}
+\begin{itemize}
+    \item \textbf{Regression:} Predicting continuous real numbers $y \in \mathbb{R}$ (e.g. Price, Temperature).
+    \item \textbf{Classification:} Predicting discrete category labels $y \in \{0, 1, \dots, K-1\}$.
+\end{itemize}
+
+\section{The Five Core Algorithms}
+\begin{enumerate}
+    \item \textbf{Linear Regression:} Fits the hyper-plane minimizing sum of squared residuals: $y = \mathbf{w}^T\mathbf{x} + b$.
+    \item \textbf{Logistic Regression:} Models binary class probability via Sigmoid link function: $P(y=1|\mathbf{x}) = \frac{1}{1 + e^{-(\mathbf{w}^T\mathbf{x} + b)}}$.
+    \item \textbf{Decision Tree:} Hierarchical recursive splitting based on impurity criteria (Gini or Entropy).
+    \item \textbf{Random Forest:} Bagging ensemble of de-correlated decision trees with feature sub-sampling.
+    \item \textbf{K-Means:} Partitioning algorithm iteratively minimizing within-cluster sum of squares to $K$ centroids.
+\end{enumerate}
+
+\section{Model Evaluation \& Overfitting}
+\subsection{Regression Metrics}
+\begin{equation}
+\text{MAE} = \frac{1}{N}\sum_{i=1}^N |y_i - \hat{y}_i|, \quad \text{RMSE} = \sqrt{\frac{1}{N}\sum_{i=1}^N (y_i - \hat{y}_i)^2}, \quad R^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}
+\end{equation}
+
+\subsection{Classification Metrics}
+\begin{equation}
+\text{Precision} = \frac{TP}{TP + FP}, \quad \text{Recall} = \frac{TP}{TP + FN}, \quad F_1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}
+\end{equation}
+
+\section{Neural Networks \& Activation Functions}
+\subsection{The Artificial Neuron}
+\begin{equation}
+z = \sum_{j=1}^d w_j x_j + b, \quad a = \sigma(z)
+\end{equation}
+
+\subsection{Activation Functions}
+\begin{itemize}
+    \item \textbf{ReLU:} $f(x) = \max(0, x)$. Provides non-linear piecewise representation avoiding vanishing gradients.
+    \item \textbf{Sigmoid:} $\sigma(x) = \frac{1}{1 + e^{-x}}$.
+\end{itemize}
+
+\subsection{Gradient Descent}
+Weight updates in the direction of the negative gradient:
+\begin{equation}
+\mathbf{w}^{(t+1)} = \mathbf{w}^{(t)} - \eta \nabla_{\mathbf{w}} \mathcal{L}(\mathbf{w})
+\end{equation}
+where $\eta$ is the learning rate.
+
+\end{document}
