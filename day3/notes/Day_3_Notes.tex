@@ -1,0 +1,74 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+
+\title{\textbf{Day 3: NLP, Encoder-Decoder and Transformers}}
+\author{Data Science Foundation Series}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Natural Language Processing \& Tokenization}
+\begin{itemize}
+    \item \textbf{Natural Language Processing (NLP):} The discipline of enabling computational models to parse, represent, and generate natural human language.
+    \item \textbf{Tokenization Levels:} Character-level (fine-grained, zero OOV, verbose), Word-level (high semantics, high OOV), and Subword-level (Byte-Pair Encoding, WordPiece) balancing vocabulary size and sequence length.
+    \item \textbf{Dense Word Embeddings:} Mapping discrete token indices to continuous feature vectors $\mathbf{e} \in \mathbb{R}^d$ such that semantic proximity corresponds to geometric alignment:
+    \begin{equation}
+    \text{Cosine Similarity}(\mathbf{u}, \mathbf{v}) = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{u}\|_2 \|\mathbf{v}\|_2}
+    \end{equation}
+\end{itemize}
+
+\section{Attention and Self-Attention Mechanisms}
+\subsection{The Query-Key-Value Formulation}
+Given input matrix $\mathbf{X} \in \mathbb{R}^{N \times d_{\text{model}}}$, linear projections produce Queries $\mathbf{Q} = \mathbf{X}\mathbf{W}_Q$, Keys $\mathbf{K} = \mathbf{X}\mathbf{W}_K$, and Values $\mathbf{V} = \mathbf{X}\mathbf{W}_V$.
+
+\subsection{Scaled Dot-Product Attention}
+\begin{equation}
+\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\mathbf{V}
+\end{equation}
+The scaling factor $\frac{1}{\sqrt{d_k}}$ counteracts the growth of dot product magnitudes with increasing dimensionality $d_k$, preventing the softmax activation from saturating and producing vanishing gradients.
+
+\subsection{Multi-Head Attention (MHA)}
+\begin{equation}
+\text{MultiHead}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Concat}(\text{head}_1, \dots, \text{head}_h)\mathbf{W}^O
+\end{equation}
+where $\text{head}_i = \text{Attention}(\mathbf{Q}\mathbf{W}_i^Q, \mathbf{K}\mathbf{W}_i^K, \mathbf{V}\mathbf{W}_i^V)$.
+
+\section{Positional Encoding \& Transformer Architecture}
+\subsection{Sinusoidal Positional Encoding}
+Because self-attention is permutation-invariant, positional coordinates are injected into embeddings:
+\begin{align}
+PE_{(pos, 2i)} &= \sin\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right) \\
+PE_{(pos, 2i+1)} &= \cos\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)
+\end{align}
+
+\subsection{Residual Connections and Normalization}
+Each sublayer incorporates residual skip connections and layer normalization:
+\begin{equation}
+\mathbf{y} = \text{LayerNorm}(\mathbf{x} + \text{Sublayer}(\mathbf{x}))
+\end{equation}
+
+\section{The Architectural Trinity: BERT, GPT, and T5}
+\begin{itemize}
+    \item \textbf{BERT (Encoder-Only):} Bidirectional attention mask; trained via Masked Language Modeling (MLM); optimized for sequence classification, NER, and extractive search.
+    \item \textbf{GPT (Decoder-Only):} Causal lower-triangular attention mask; trained via autoregressive next-token prediction; optimized for generative text completion and reasoning.
+    \item \textbf{T5 (Encoder-Decoder):} Full bidirectional encoder coupled with causal autoregressive decoder via cross-attention; unified text-to-text transformation framework.
+\end{itemize}
+
+\section{Autoregressive Generation \& Decoding Strategies}
+Given prefix tokens $x_{1:t}$, the model emits unnormalized logits $\mathbf{z}_{t+1}$. Softmax yields next-token probabilities:
+\begin{equation}
+P(w_i | x_{1:t}) = \frac{\exp(z_i / T)}{\sum_j \exp(z_j / T)}
+\end{equation}
+where $T$ represents temperature. Decoding strategies include Greedy Search ($\text{argmax}$), Top-$K$ truncation, and Top-$P$ (Nucleus) cumulative probability sampling.
+
+\end{document}
